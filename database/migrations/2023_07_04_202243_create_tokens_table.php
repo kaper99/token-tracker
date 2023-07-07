@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('symbol');
+            $table->string('currency');
             $table->timestamps();
         });
     }

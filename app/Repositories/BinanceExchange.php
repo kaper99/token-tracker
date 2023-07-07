@@ -2,20 +2,13 @@
 
 namespace App\Repositories;
 
-use App\DTOs\PriceDTO;
-use Illuminate\Support\Facades\Http;
+use App\Requests\Binance\GetSymbolPriceRequest;
+use App\Services\RequestProcessors\ProcessRequestService;
 
 class BinanceExchange implements ExchangeRepository
 {
-    public function getCurrentPrice(string $currency, string $counterCurrency): PriceDTO
+    public function getCurrentPrice(string $symbol): string
     {
-        $response = Http::send('GET', 'https://api.binance.com/api/v3/ticker/price?symbol=' . $currency . $counterCurrency);
-
-        if (!isset($response['price'])) {
-            throw new \Exception();
-        }
-
-        return new PriceDTO($currency, $counterCurrency, $response['price']);
-        dd($response->json());
+        return (new ProcessRequestService)(new GetSymbolPriceRequest($symbol))->price;
     }
 }

@@ -10,11 +10,10 @@ class Token extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
-
-    public function getCurrentPrice(ExchangeRepository $exchangeRepository, string $counterCurrency = 'USDT')
+    public function __construct(array $attributes = [])
     {
-        $response = $exchangeRepository->getCurrentPrice($this->symbol, $counterCurrency);
-        return $response['price'];
+        parent::__construct($attributes);
     }
+
+    protected $fillable = ['currency'];
 }

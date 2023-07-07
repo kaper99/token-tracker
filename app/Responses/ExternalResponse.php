@@ -2,7 +2,7 @@
 
 namespace App\Responses;
 
-interface BinanceResponse
+interface ExternalResponse
 {
 
 }

@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\DTOs\PriceDTO;
+
 
 interface ExchangeRepository
 {
-    public function getCurrentPrice(string $currency, string $counterCurrency): PriceDTO;
+    public function getCurrentPrice(string $symbol): string;
 }
