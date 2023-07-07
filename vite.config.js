@@ -2,6 +2,12 @@ import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
 
 export default defineConfig({
+    server: {
+        host: '0.0.0.0',
+        hmr: {
+            host: '127.0.0.1',
+        },
+    },
     plugins: [
         laravel({
             input: [
