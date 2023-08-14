@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\TokensList;
-use App\Http\Livewire\VaultComponent;
+use App\Livewire\TokensList;
+use App\Livewire\VaultComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
