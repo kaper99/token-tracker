@@ -8,8 +8,13 @@ class TokenRepository
     {
     }
 
-    public function getCurrentPrice(string $symbol)
+    public function getCurrentPrice(string $currencyPair): string
     {
-        return $this->exchangeRepository->getCurrentPrice($symbol);
+        return $this->exchangeRepository->getCurrentPrice($currencyPair);
+    }
+
+    public function getCurrentPrices(array $currencyPairs): array
+    {
+        return $this->exchangeRepository->getCurrentPrices($currencyPairs);
     }
 }

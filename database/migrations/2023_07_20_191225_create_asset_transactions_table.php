@@ -5,25 +5,20 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('assets', function (Blueprint $table) {
+        Schema::create('asset_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('token_id')->references('id')->on('tokens');
-            $table->foreignId('vault_id')->references('id')->on('vaults');
+            $table->foreignId('asset_id')->references('id')->on('assets');
             $table->decimal('quantity', 15, 10);
+            $table->decimal('price', 15, 10);
+            $table->timestamp('transaction_at')->default(now());
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('assets');
+        Schema::dropIfExists('asset_histories');
     }
 };
