@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AssetResource\Pages;
-use App\Filament\Resources\AssetResource\RelationManagers;
-use App\Models\Asset;
+use App\Filament\Resources\AssetTransactionResource\Pages;
+use App\Filament\Resources\AssetTransactionResource\RelationManagers;
+use App\Models\AssetTransaction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AssetResource extends Resource
+class AssetTransactionResource extends Resource
 {
-    protected static ?string $model = Asset::class;
+    protected static ?string $model = AssetTransaction::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,15 +23,18 @@ class AssetResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('token_id')
-                    ->relationship('token', 'id')
+                Forms\Components\Select::make('asset_id')
+                    ->relationship('asset', 'id')
                     ->required(),
-                Forms\Components\TextInput::make('vault_id')
-                    ->required()
-                    ->numeric(),
                 Forms\Components\TextInput::make('quantity')
                     ->required()
                     ->numeric(),
+                Forms\Components\TextInput::make('price')
+                    ->required()
+                    ->numeric()
+                    ->prefix('$'),
+                Forms\Components\DateTimePicker::make('transaction_at')
+                    ->required(),
             ]);
     }
 
@@ -39,14 +42,17 @@ class AssetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('token.id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('vault_id')
+                Tables\Columns\TextColumn::make('asset.id')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
                     ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('price')
+                    ->money()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('transaction_at')
+                    ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -72,20 +78,20 @@ class AssetResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-
+    
     public static function getRelations(): array
     {
         return [
-            RelationManagers\TransactionsRelationManager::class
+            //
         ];
     }
-
+    
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAssets::route('/'),
-            'create' => Pages\CreateAsset::route('/create'),
-            'edit' => Pages\EditAsset::route('/{record}/edit'),
+            'index' => Pages\ListAssetTransactions::route('/'),
+            'create' => Pages\CreateAssetTransaction::route('/create'),
+            'edit' => Pages\EditAssetTransaction::route('/{record}/edit'),
         ];
-    }
+    }    
 }
