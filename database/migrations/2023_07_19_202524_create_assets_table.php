@@ -14,7 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('token_id')->references('id')->on('tokens');
             $table->foreignId('vault_id')->references('id')->on('vaults');
-            $table->decimal('quantity', 15, 10);
+            $table->decimal('purchase_price',17,10);
+            $table->timestamp('bought_at')->default(now());
+            $table->decimal('quantity', 17, 10);
             $table->timestamps();
         });
     }

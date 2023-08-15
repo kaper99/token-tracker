@@ -12,6 +12,10 @@ class Asset extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'purchase_price'
+    ];
+
     public function name(): Attribute
     {
         return Attribute::make(

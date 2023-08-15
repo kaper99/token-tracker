@@ -10,12 +10,13 @@ class TokenSeeder extends Seeder
     public function run(): void
     {
         collect([
-            'BTC',
-            'ETH',
-            'ARB',
-            'GRT'
-        ])->each(function (string $currency) {
+            'BTC' => 'Bitcoin',
+            'ETH' => 'Etherum',
+            'ARB' => 'Arbitrum',
+            'GRT' => 'The Graph'
+        ])->each(function (string $name, string $currency) {
             Token::factory()->create([
+                'name' => $name,
                 'currency' => $currency
             ]);
         });

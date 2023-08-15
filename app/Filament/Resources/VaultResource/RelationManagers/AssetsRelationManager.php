@@ -28,8 +28,10 @@ class AssetsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('Asset')
             ->columns([
-                Tables\Columns\TextColumn::make('Token name')->getStateUsing(fn(Asset $asset) => $asset->token->currency),
+                Tables\Columns\TextColumn::make('Token symbol')->getStateUsing(fn(Asset $asset) => $asset->token->currency),
+                Tables\Columns\TextColumn::make('Token name')->getStateUsing(fn(Asset $asset) => $asset->token->name),
                 Tables\Columns\TextColumn::make('quantity'),
+                Tables\Columns\TextColumn::make('purchase_price'),
             ])
             ->filters([
                 //
