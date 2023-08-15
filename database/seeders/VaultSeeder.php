@@ -12,17 +12,19 @@ class VaultSeeder extends Seeder
 {
     public function run(): void
     {
-        $vault = Vault::create([
-            'user_id' => User::first()->id
-        ]);
+        for ($i = 0; $i <= 1; $i++) {
+            $vault = Vault::create([
+                'user_id' => User::first()->id
+            ]);
+            Token::all()->each(function (Token $token) use ($vault) {
+                $vault->assets()->save(Asset::create([
+                    'token_id' => $token->id,
+                    'vault_id' => $vault->id,
+                    'purchase_price' => rand(10, 100) / 10,
+                    'quantity' => rand(10, 100) / 10
+                ]));
+            });
+        }
 
-        Token::all()->each(function (Token $token) use ($vault) {
-            $vault->assets()->save(Asset::create([
-                'token_id' => $token->id,
-                'vault_id' => $vault->id,
-                'purchase_price' => rand(10, 100) / 10,
-                'quantity' => rand(10, 100) / 10
-            ]));
-        });
     }
 }

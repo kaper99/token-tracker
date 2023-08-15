@@ -5,8 +5,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -62,9 +61,9 @@ class User extends Authenticatable implements FilamentUser
         'profile_photo_url',
     ];
 
-    public function vault(): hasOne
+    public function vaults(): hasMany
     {
-        return $this->hasOne(Vault::class);
+        return $this->hasMany(Vault::class);
     }
 
     public function canAccessPanel(Panel $panel): bool

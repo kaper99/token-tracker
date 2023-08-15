@@ -2,6 +2,7 @@
 
 use App\Livewire\TokensList;
 use App\Livewire\VaultComponent;
+use App\Livewire\VaultsListComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,5 +26,6 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::view('/dashboard', 'dashboard' )->name('dashboard');
-    Route::get('/vault', VaultComponent::class)->name('vault');
+    Route::get('/vaults', VaultsListComponent::class)->name('vaults');
+    Route::get('/vault/{id}', VaultComponent::class)->name('vault');
 });
