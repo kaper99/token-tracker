@@ -10,6 +10,10 @@ class AssetTransaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'quantity', 'price'
+    ];
+
     public function asset(): BelongsTo
     {
         return $this->belongsTo(Asset::class);
