@@ -12,7 +12,7 @@ class VaultPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -28,7 +28,7 @@ class VaultPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -36,7 +36,7 @@ class VaultPolicy
      */
     public function update(User $user, Vault $vault): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -44,7 +44,7 @@ class VaultPolicy
      */
     public function delete(User $user, Vault $vault): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -52,7 +52,7 @@ class VaultPolicy
      */
     public function restore(User $user, Vault $vault): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -60,6 +60,6 @@ class VaultPolicy
      */
     public function forceDelete(User $user, Vault $vault): bool
     {
-        //
+        return true;
     }
 }
