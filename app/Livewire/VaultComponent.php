@@ -4,13 +4,18 @@ namespace App\Livewire;
 
 use App\Models\Vault;
 use App\Repositories\TokenRepository;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class VaultComponent extends Component
 {
+    use AuthorizesRequests;
+
     public Vault $vault;
     protected TokenRepository $tokenRepository;
     public array $assetPrices = [];
+    public bool $onList = false;
+    public array $assets = [];
 
     public function render()
     {
@@ -22,12 +27,10 @@ class VaultComponent extends Component
         $this->tokenRepository = $tokenRepository;
     }
 
-    public function mount()
+    public function mount(int $vaultId, bool $onList = false)
     {
-        $this->vault = \Auth::user()->vault;
-        $currencyPairs = $this->vault->assets()->with('token')->get()->map(function ($asset){
-            return $asset->token->currency.'USDT';
-        })->toArray();
-        $this->assetPrices = $this->tokenRepository->getCurrentPrices($currencyPairs);
+        $this->onList = $onList;
+        $this->vault = Vault::findOrFail($vaultId);
+        $this->authorize('view', $this->vault);
     }
 }
