@@ -2,12 +2,26 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toaster;
 
-class CreateVaultModalComponent extends Component
+class CreateVaultModalComponent extends ModalComponent
 {
+    public string $name;
+
     public function render()
     {
         return view('livewire.create-vault-modal-component');
+    }
+
+    public function save()
+    {
+        \Auth::user()->vaults()->create([
+                'name' => $this->name
+            ]
+        );
+
+        $this->closeModal();
+        Toaster::success('Utworzono');
     }
 }

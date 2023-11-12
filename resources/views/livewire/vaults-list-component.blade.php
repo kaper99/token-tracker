@@ -4,9 +4,7 @@
             <div class="text-white">
                 {{__('Nie posiadasz żadnego portfela')}}
             </div>
-            <button wire:click="dispatch('create-vault-modal-component', 'hello-world')" class="rounded-lg bg-green-500 hover:bg-gray-50 p-6 text-center">
-                Utwórz portfel
-            </button>
+            <button wire:click="$dispatch('openModal', { component: 'create-vault-modal-component' })">Utwórz portfel</button>
         </div>
     @else
         @foreach($userVaults as $userVault)

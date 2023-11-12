@@ -13,8 +13,7 @@ class VaultsListComponent extends Component
 
     public function mount()
     {
-        $this->userVaults = collect();
-//        $this->userVaults = \Auth::user()->vaults;
+        $this->userVaults = \Auth::user()->vaults;
     }
 
     public function render()

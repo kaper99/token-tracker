@@ -4,10 +4,16 @@
             {{$vault->name}}
         </div>
     @else
-        <div class="grid grid-cols-4 gap-4 text-center ">
-            @foreach($vault->assets as $asset)
-                <livewire:asset-component :id="$asset->id"/>
-            @endforeach
-        </div>
+       @if($vault->assets)
+            <div class="grid grid-cols-4 gap-4 text-center ">
+                @foreach($vault->assets as $asset)
+                    <livewire:asset-component :id="$asset->id"/>
+                @endforeach
+            </div>
+           @else
+            <div class="bg-green-500 ">
+             You have 0 tokens
+            </div>
+       @endif
     @endif
 </div>

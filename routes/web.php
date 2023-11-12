@@ -27,5 +27,5 @@ Route::middleware([
 ])->group(function () {
     Route::view('/dashboard', 'dashboard' )->name('dashboard');
     Route::get('/vaults', VaultsListComponent::class)->name('vaults');
-    Route::get('/vault/{id}', VaultComponent::class)->name('vault');
+    Route::get('/vault/{vaultId}', VaultComponent::class)->name('vault');
 });

@@ -15,6 +15,7 @@ class VaultComponent extends Component
     protected TokenRepository $tokenRepository;
     public array $assetPrices = [];
     public bool $onList = false;
+    public array $assets = [];
 
     public function render()
     {
@@ -26,14 +27,10 @@ class VaultComponent extends Component
         $this->tokenRepository = $tokenRepository;
     }
 
-    public function mount(int $vaultId, bool $onList)
+    public function mount(int $vaultId, bool $onList = false)
     {
         $this->onList = $onList;
         $this->vault = Vault::findOrFail($vaultId);
         $this->authorize('view', $this->vault);
-        $currencyPairs = $this->vault->assets()->with('token')->get()->map(function ($asset) {
-            return $asset->token->currency . 'USDT';
-        })->toArray();
-        $this->assetPrices = $this->tokenRepository->getCurrentPrices($currencyPairs);
     }
 }
