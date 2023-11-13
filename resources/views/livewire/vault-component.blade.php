@@ -4,16 +4,23 @@
             {{$vault->name}}
         </div>
     @else
-       @if($vault->assets)
+        <button
+            type="button" wire:click="synchronize('{{\App\VaultProviders\Enums\VaultProvider::COIN_MARKET_CAP->value}}')"
+            class="rounded-lg bg-indigo-600 hover:bg-gray-50 p-6 w-48">
+
+            Synchronize with CoinmarketCap
+
+        </button>
+        @if($vault->assets)
             <div class="grid grid-cols-4 gap-4 text-center ">
                 @foreach($vault->assets as $asset)
                     <livewire:asset-component :id="$asset->id"/>
                 @endforeach
             </div>
-           @else
+        @else
             <div class="bg-green-500 ">
-             You have 0 tokens
+                You have 0 tokens
             </div>
-       @endif
+        @endif
     @endif
 </div>

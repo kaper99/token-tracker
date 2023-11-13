@@ -30,6 +30,13 @@ class AssetComponent extends Component
     public function getCurrentValueInUSD(): float
     {
         // @todo implement DTO with price parser
-        return (double)$this->tokenRepository->getCurrentPrice($this->asset->token->currency . 'USDT');
+        $pair = $this->asset->token->currency . 'USDT';
+        if (\Cache::get($pair)) {
+            return \Cache::get($pair);
+        }
+
+        $result = (double)$this->tokenRepository->getCurrentPrice($pair);
+        \Cache::set($pair, $result, now()->addHour());
+        return $result;
     }
 }
