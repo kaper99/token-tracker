@@ -6,6 +6,7 @@ use App\Requests\Binance\BinanceRequest;
 use App\Requests\ExternalRequest;
 use App\Responses\Binance\BinanceResponse;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class ProcessRequestService extends RequestProcessor
 {
@@ -13,9 +14,11 @@ class ProcessRequestService extends RequestProcessor
 
     public function __invoke(ExternalRequest $request): BinanceResponse
     {
-        $response = (new Client)->request($request->getMethod(), $request->getPath());
+            $response = (new Client)->request($request->getMethod(), $request->getPath(), [
+                'http_errors' => false
+            ]);
 
-        $responseClass = $this->resolveResponseClass($request);
+            $responseClass = $this->resolveResponseClass($request);
 
         return new $responseClass($response);
     }

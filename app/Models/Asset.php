@@ -13,7 +13,7 @@ class Asset extends Model
     use HasFactory;
 
     protected $fillable = [
-        'purchase_price'
+        'average_price', 'token_id', 'vault_id'
     ];
 
     public function name(): Attribute

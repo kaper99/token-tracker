@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('currency');
             $table->string('name');
+            $table->string('slug');
+            $table->string('coinmarketcap_id')->nullable();
             $table->timestamps();
         });
     }

@@ -31,7 +31,7 @@ class AssetsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('Token symbol')->getStateUsing(fn(Asset $asset) => $asset->token->currency),
                 Tables\Columns\TextColumn::make('Token name')->getStateUsing(fn(Asset $asset) => $asset->token->name),
                 Tables\Columns\TextColumn::make('quantity'),
-                Tables\Columns\TextColumn::make('purchase_price'),
+                Tables\Columns\TextColumn::make('average_price'),
             ])
             ->filters([
                 //

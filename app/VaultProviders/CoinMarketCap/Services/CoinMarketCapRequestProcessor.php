@@ -14,7 +14,7 @@ class CoinMarketCapRequestProcessor
     {
     }
 
-    public function process(CoinMarketCapRequest $request, ?string $bearerToken = null)
+    public function process(CoinMarketCapRequest $request)
     {
         $cookieJar = CookieJar::fromArray([
             'Authorization' => \Auth::user()->coinmarketcap_token

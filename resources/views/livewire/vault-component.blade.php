@@ -4,12 +4,15 @@
             {{$vault->name}}
         </div>
     @else
-        <button
-            type="button" wire:click="synchronize('{{\App\VaultProviders\Enums\VaultProvider::COIN_MARKET_CAP->value}}')"
-            class="rounded-lg bg-indigo-600 hover:bg-gray-50 p-6 w-48">
+        <button class="rounded-lg bg-indigo-600 hover:bg-gray-50 p-6 w-48 mb-5" type="button"
 
+                @if(!empty($vault->coinmarketcap_id))
+                    wire:click="synchronize('coinmarketcap')"
+                @else
+                    wire:click="$dispatch('openModal', { component: 'sync-with-coin-market-cap-component', arguments:{vaultId: {{$vault->id}} }})"
+            @endif
+        >
             Synchronize with CoinmarketCap
-
         </button>
         @if($vault->assets)
             <div class="grid grid-cols-4 gap-4 text-center ">
@@ -23,4 +26,7 @@
             </div>
         @endif
     @endif
+   <div class="hidden">
+       <livewire:sync-with-coin-market-cap-component :vaultId="$vault->id" class="hidden"/>
+   </div>
 </div>

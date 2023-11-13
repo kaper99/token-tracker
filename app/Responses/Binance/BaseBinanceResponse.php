@@ -3,6 +3,7 @@
 namespace App\Responses\Binance;
 
 use App\Exceptions\ExternalResponse\ExternalSystemCriticalErrorException;
+use App\Exceptions\ExternalResponse\InvalidPair;
 use GuzzleHttp\Psr7\Response;
 
 abstract class BaseBinanceResponse
@@ -25,6 +26,10 @@ abstract class BaseBinanceResponse
 
     protected function validateResponse()
     {
+        if ($this->response->getStatusCode() == 400) {
+            throw new InvalidPair('Pair not found');
+        }
+
         if ($this->response->getStatusCode() >= 500) {
             \Log::error('Binance does not work properly.', [
                 'occurred-in' => get_class($this)
