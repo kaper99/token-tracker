@@ -12,8 +12,6 @@ class GetPortfolioTokensRequest implements CoinMarketCapRequest
     {
         return [
             "portfolioSourceId" => $this->portfolioId,
-//            "portfolioType" => "manual",
-//            "cryptoUnit" => 2781,
             "currentPage" => 1,
             "pageSize" => 10000
         ];
@@ -26,6 +24,6 @@ class GetPortfolioTokensRequest implements CoinMarketCapRequest
 
     public function getPath(): string
     {
-        return 'https://api.coinmarketcap.com/asset/v3/portfolio/query-summary';
+        return config('coinmarketcap.api-url').'/query-summary';
     }
 }
