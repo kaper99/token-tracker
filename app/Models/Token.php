@@ -10,5 +10,5 @@ class Token extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['currency'];
+    protected $fillable = ['currency', 'slug', 'coinmarketcap_id', 'name'];
 }

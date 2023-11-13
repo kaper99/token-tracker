@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Exceptions\ExternalResponse\InvalidPair;
 use App\Models\Asset;
 use App\Repositories\TokenRepository;
 use Livewire\Component;
@@ -27,9 +28,21 @@ class AssetComponent extends Component
         $this->asset = Asset::findOrFail($id);
     }
 
-    public function getCurrentValueInUSD(): float
+    public function getCurrentValueInUSD(): ?float
     {
-        // @todo implement DTO with price parser
-        return (double)$this->tokenRepository->getCurrentPrice($this->asset->token->currency . 'USDT');
+        $pair = $this->asset->token->currency . config('binance.default-stablecoin');
+        try {
+            if (\Cache::get($pair)) {
+                return \Cache::get($pair);
+            }
+            $result = (double)$this->tokenRepository->getCurrentPrice($pair);
+
+            \Cache::set($pair, $result, now()->addHour());
+        } catch (InvalidPair $e) {
+            \Toaster::error('Pair ' . $pair . ' not found in Binance');
+            return null;
+        }
+
+        return $result;
     }
 }

@@ -33,4 +33,9 @@ class VaultComponent extends Component
         $this->vault = Vault::findOrFail($vaultId);
         $this->authorize('view', $this->vault);
     }
+
+    public function synchronize(string $provider = 'coinmarketcap'): void
+    {
+        $this->dispatch('synchronize-vault', provider: $provider);
+    }
 }

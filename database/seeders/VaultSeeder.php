@@ -20,7 +20,7 @@ class VaultSeeder extends Seeder
                 $vault->assets()->save(Asset::create([
                     'token_id' => $token->id,
                     'vault_id' => $vault->id,
-                    'purchase_price' => rand(10, 100) / 10,
+                    'average_price' => rand(10, 100) / 10,
                     'quantity' => rand(10, 100) / 10
                 ]));
             });
